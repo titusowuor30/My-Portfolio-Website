@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+  <!-- home section start -->
+     {% for detail in about %}
+    <section class="home" id="home">
+        <div class="max-width">
+            <div class="home-content">
+                <div class="text-1">Hello, my name is </div>
+                <div class="text-2">{{detail.user.username}} Owuor</div>
+                <div class="text-3">(T . O . O)<br>
+                    I am <span class="typing"></span></div>
+                <a href="https://wa.me/+254743793901">Hire Me</a>
+            </div>
+        </div>
+    </section>
+    <!-- about section start -->
+    <section class="about" id="about">
+        <div class="max-width">
+            <h2 class="title">About Me</h2>
+            <div class="about-content">
+                <div class="column left">
+                    <img src="{{detail.image.url}}" alt="">
+                </div>
+                <div class="column right">
+                    <div class="text">Who is <span style="color:red;">{{detail.user.username}}.</span> <br>  I am a <span class="typing-2"></span></div>
+                    <a href="{{detail.cv.url}}" download="{{detail.cv.url}}">Download CV</a>
+                </div>
+            </div>
+        </div>
+    </section>
+         {% endfor %}
+
+    <!-- services section start -->
+    <section class="services" id="services">
+        <div class="max-width">
+            <h2 class="title">My services</h2>
+            <div class="serv-content">
+                {% for s in services %}
+                <div class="card">
+                    <div class="box">
+                        <i class="{{s.icon}}"></i>
+                        <div class="text">{{s.title}}</div>
+                        <p>{{s.content}}</p>
+                    </div>
+                </div>
+                {% endfor %}
+               </div>
+            </div>
+        </div>
+    </section>
+    <!-- skills section start -->
+    <section class="skills" id="skills">
+        <div class="max-width">
+            <h2 class="title">My skills</h2>
+            <div class="skills-content">
+                <div class="column left">
+                    <div class="text">My creative skills</div>
+                    <p>{{skdesc|first}}</p>
+                    <a href="#">Read more</a>
+                </div>
+                <div class="column right">
+                    {% for s in skills %}
+                    <div class="bars">
+                        <div class="info">
+                            <span>{{s.title}}</span>
+                            <span>{{s.percnt}}%</span>
+                        </div>
+                        <div class="line html"></div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+ <!-- experience section start -->
+    <section class="skills" id="experience">
+        <div class="max-width">
+            <h2 class="title">Experiences</h2>
+            <div class="skills-content">
+                <div class="column left">
+                    <div class="text">My Experiences.</div>
+                    <p>{{edesc|first}}</p>
+                    <a href="#">Read more</a>
+                </div>
+                <div class="column right">
+                    {% for e in exps %}
+                    <div class="bars">
+                        <div class="info">
+                            <span>{{e.title}}</span>
+                            <span>{{e.percnt}}%</span>
+                        </div>
+                        <div class="line html"></div>
+                </div>
+                    {% endfor %}
+            </div>
+        </div>
+    </section>
+    <!-- teams section start -->
+    <section class="teams" id="teams">
+        <div class="max-width">
+            <h2 class="title">My Teams</h2>
+            <div class="carousel owl-carousel">
+                {% for t in teams %}
+                <div class="card">
+                    <div class="box">
+                        <img src="{{t.image.url}}" alt="">
+                        <div class="text">{{t.name}}</div>
+                        <p>{{t.description}}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <!-- contact section start -->
+
+    <section class="contact" id="contact">
+        <div class="max-width">
+            <h2 class="title">Contact Me</h2>
+            <div class="contact-content">
+                <div class="column left">
+                    <div class="text">Get in Touch</div>
+                    <p>I responds instantly to your needs. To reach me,choose your most convenient way of getting in touch below.</p>
+                    <div class="icons">
+                        <div class="row">
+                            <i class="fas fa-building"></i>
+                            <div class="info">
+                                <div class="head">Name</div>
+                                <div class="sub-title">Titus O. Owuor</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div class="info">
+                                <div class="head">Address</div>
+                                <div class="sub-title">infotdbsoft@gmail.com</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <i class="fas fa-envelope"></i>
+                            <div class="info">
+                                <div class="head">Email</div>
+                                <div class="sub-title">infotdbsoft@gmail.com</div>
+                            </div>
+                        </div>
+                         <div class="row">
+                            <i class="fab fa-whatsapp"></i>
+                            <div class="info">
+                                <div class="head">Whatsapp</div>
+                                <div class="sub-title"><a href="https://wa.me/+254743793901"><b>+254743793901</b>(click to send a direct message on whatsapp)</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column right">
+                    <div class="text">Leave Me a Message</div>
+                    <form action="{% url 'leavemessage' %}" method="post">
+                        {% csrf_token %}
+                        <div class="fields">
+                            <div class="field name">
+                                <input type="text" placeholder="Name"  name="name" required>
+                            </div>
+                            <div class="field email">
+                                <input type="email" placeholder="Email"  name="email" required>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <input type="text" placeholder="Subject"  name="subject" required>
+                        </div>
+                        <div class="field textarea">
+                            <textarea cols="30" rows="10" placeholder="Message.."  name="message" required></textarea>
+                        </div>
+                        <div class="button-area">
+                            <button type="submit">Send message</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
