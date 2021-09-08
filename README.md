@@ -1,2 +1,2 @@
-# TDBSoft-Portfolio-Website
-TDBSoft Portfolio Website front end
+# My-Portfolio-Website
+MyPortfolio Website front end
