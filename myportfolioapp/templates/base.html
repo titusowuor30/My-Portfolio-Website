@@ -18,11 +18,11 @@
     <!-- Material Design Bootstrap -->
     <link href="{% static 'styles/css/mdb.min.css' %}" rel="stylesheet">
 </head>
-<body style="background-image: url('banner.jpg');">
+<body style="background: url('{{bg|first}}') no-repeat center;">
     <div class="scroll-up-btn">
         <i class="fas fa-angle-up"></i>
     </div>
-    <nav class="navbar">
+    <nav class="navbar"> 
         <div class="max-width">
             <div class="logo"><a href="images/tdbsoftlogolarge.png">Port<span>folio.</span></a></div>
             <ul class="menu">
@@ -56,7 +56,7 @@
     {% endblock %}
     <!-- footer section start -->
     <footer>
-        <span>Created By <a href="mailto:infotdbsoft@gmail.com">Titus</a> | <span class="far fa-copyright"></span> 2021 All rights reserved.</span>
+        <span>Created By <a href="mailto:infotdbsoft@gmail.com">Titus O. Owuor Founder and C.E.O of TDBSoft</a> | <span class="far fa-copyright"></span> 2021 All rights reserved.</span>
     </footer>
     <script src="{% static 'script.js' %}"></script>
 </body>

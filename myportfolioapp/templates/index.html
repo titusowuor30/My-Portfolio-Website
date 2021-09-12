@@ -8,10 +8,10 @@
         <div class="max-width">
             <div class="home-content">
                 <div class="text-1">Hello, my name is </div>
-                <div class="text-2">{{detail.user.username}} Owuor</div>
-                <div class="text-3">(T . O . O)<br>
+                <div class="text-2">{{detail.user.first_name}} {{detail.user.last_name}}</div>
+                <div class="text-3">({{detail.user.first_name|first}} . {{detail.user.last_name|first}})<br>
                     I am <span class="typing"></span></div>
-                <a href="https://wa.me/+254743793901">Hire Me</a>
+                <a href="https://wa.me/{{tel|first}}">Hire Me</a>
             </div>
         </div>
     </section>
@@ -21,10 +21,14 @@
             <h2 class="title">About Me</h2>
             <div class="about-content">
                 <div class="column left">
-                    <img src="{{detail.image.url}}" alt="">
+                    {% if detail.image %}
+                        <img src="{{detail.image.url}}" alt="">
+                        {% else %}
+                        <img src="{% static 'kim1.png' %}" alt="">
+                        {% endif %}
                 </div>
                 <div class="column right">
-                    <div class="text">Who is <span style="color:red;">{{detail.user.username}}.</span> <br>  I am a <span class="typing-2"></span></div>
+                    <div class="text">Who is <span style="color:red;">{{detail.user.first_name}}.</span> <br>  I am a <span class="typing-2"></span></div>
                     <a href="{{detail.cv.url}}" download="{{detail.cv.url}}">Download CV</a>
                 </div>
             </div>
@@ -105,7 +109,11 @@
                 {% for t in teams %}
                 <div class="card">
                     <div class="box">
+                        {% if t.image %}
                         <img src="{{t.image.url}}" alt="">
+                        {% else %}
+                        <img src="{% static 'user.png' %}" alt="">
+                        {% endif %}
                         <div class="text">{{t.name}}</div>
                         <p>{{t.description}}</p>
                     </div>
@@ -128,28 +136,28 @@
                             <i class="fas fa-building"></i>
                             <div class="info">
                                 <div class="head">Name</div>
-                                <div class="sub-title">Titus O. Owuor</div>
+                                <div class="sub-title">{{name|first}}</div>
                             </div>
                         </div>
                         <div class="row">
                             <i class="fas fa-map-marker-alt"></i>
                             <div class="info">
                                 <div class="head">Address</div>
-                                <div class="sub-title">infotdbsoft@gmail.com</div>
+                                <div class="sub-title">{{adres|first}}</div>
                             </div>
                         </div>
                         <div class="row">
                             <i class="fas fa-envelope"></i>
                             <div class="info">
                                 <div class="head">Email</div>
-                                <div class="sub-title">infotdbsoft@gmail.com</div>
+                                <div class="sub-title">{{email|first}}</div>
                             </div>
                         </div>
                          <div class="row">
                             <i class="fab fa-whatsapp"></i>
                             <div class="info">
                                 <div class="head">Whatsapp</div>
-                                <div class="sub-title"><a href="https://wa.me/+254743793901"><b>+254743793901</b>(click to send a direct message on whatsapp)</a></div>
+                                <div class="sub-title"><a href="https://wa.me/{{tel|first}}"><b>{{tel|first}}</b>(click to send a direct message on whatsapp)</a></div>
                             </div>
                         </div>
                     </div>

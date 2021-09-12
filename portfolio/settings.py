@@ -11,8 +11,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 from pathlib import Path
-import dotenv # <- New
-
+import django_heroku
+import dj_database_url
+import dotenv
+import logging
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,8 +33,12 @@ SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# ALLOWED_HOSTS = ['*']
+if DEBUG:
+        ALLOWED_HOSTS = ["localhost", "127.0.0.1","https://kimfittyportfolio.herokuapp.com/",]
+else:
+    ALLOWED_HOSTS = ['https://titusowuorportfolio.herokuapp.com/']
 
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -55,6 +61,8 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+   'django.middleware.security.SecurityMiddleware',
+   'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -75,6 +83,11 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'myportfolioapp.context_processors.skillsdesc',
                  'myportfolioapp.context_processors.expdesc',
+                 'myportfolioapp.context_processors.setName',
+                 'myportfolioapp.context_processors.setTel',
+                 'myportfolioapp.context_processors.setEmail',
+                 'myportfolioapp.context_processors.setAddres',
+                 'myportfolioapp.context_processors.setBg',
             ],
         },
     },
@@ -85,14 +98,14 @@ WSGI_APPLICATION = 'portfolio.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-DATABASES = {
+"""DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
-}
-
+}"""
+DATABASES = {}
+DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -131,11 +144,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS=[
-    os.path.join(BASE_DIR/'static')
-]
+STATICFILES_DIRS = (
+os.path.join(BASE_DIR, 'static'),
+)
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_URL = '/media/'
-MDIA_ROOT= os.path.join(BASE_DIR/'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 
 #mail settings
@@ -150,3 +166,29 @@ EMAIL_HOST_PASSWORD =os.environ['EMAIL_HOST_PASSWORD']
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+
+django_heroku.settings(locals())
+options = DATABASES['default'].get('OPTIONS', {})
+options.pop('sslmode', None)
+
+django_heroku.settings(config=locals(), staticfiles=False,logging=False)
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
+        },
+    },
+}

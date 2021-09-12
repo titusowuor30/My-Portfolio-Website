@@ -7,6 +7,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, FormView
 from .models import *
+from django.http import JsonResponse
 from .forms import *
 # Create your views here.
 
@@ -20,6 +21,9 @@ def home(request):
     }
     return render(request,'index.html',context)
 
+def sendSkillsJson(request):
+    data = list(skills.objects.order_by('title'))  # wrap in list(), because QuerySet is not JSON serializable
+    return JsonResponse({'data': data})
 
 #send message
 def ContactView(request):
