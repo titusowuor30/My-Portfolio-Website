@@ -4,14 +4,14 @@ from django.contrib.auth.models import User
 
 class About(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE,related_name='about')
-    business_name=models.CharField(max_length=100,default='business name')
-    business_address=models.CharField(max_length=100,default='1235 Oginja Street')
-    business_email=models.EmailField(max_length=255,default='example@gmail.com')
+    business_name=models.CharField(max_length=100,default='TDBSoft')
+    business_address=models.CharField(max_length=100,default='1235 Street-Kisumu')
+    business_email=models.EmailField(max_length=255,default='infotdbsoft@gmail.com')
     bio=models.TextField(default='my bio here')
     image=models.ImageField(upload_to='media/images/',blank=True,null=True)
     background_image=models.ImageField(upload_to='media/bg/',blank=True,null=True)
     cv=models.FileField(upload_to='media/cv/',blank=True,null=True)
-    phone=models.CharField(max_length=15,default="+254711349412")
+    phone=models.CharField(max_length=15,default="+254743793901")
 
     def __str__(self):
         return self.user.username
@@ -42,7 +42,7 @@ class skill(models.Model):
 
 class experience(models.Model):
         title = models.CharField(max_length=100)
-        percnt=models.IntegerField(default=50)
+        percnt=models.IntegerField(default=2)
 
         def __str__(self):
             return self.title

@@ -29,7 +29,11 @@
                 </div>
                 <div class="column right">
                     <div class="text">Who is <span style="color:red;">{{detail.user.first_name}}.</span> <br>  I am a <span class="typing-2"></span></div>
+                   {% if detail.cv %}
                     <a href="{{detail.cv.url}}" download="{{detail.cv.url}}">Download CV</a>
+                    {% else %}
+                    <a href="{% static 'Titus_Resume.docx' %}" download="{% static 'Titus_Resume.docx' %}">Download CV</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -93,7 +97,7 @@
                     <div class="bars">
                         <div class="info">
                             <span>{{e.title}}</span>
-                            <span>{{e.percnt}}%</span>
+                            <span>{{e.percnt}} Years</span>
                         </div>
                         <div class="line html"></div>
                 </div>

@@ -33,18 +33,18 @@ $(document).ready(function(){
         $('.menu-btn i').toggleClass("active");
     });
 
-    // typing text animation script
-    var typed = new Typed(".typing", {
-        strings: ["YouTuber", "Fitness Coach", "Blogger", "Artist", "Carpenter",],
-        typeSpeed: 100,
-        backSpeed: 60,
+     // typing text animation script
+     var typed = new Typed(".typing", {
+        strings: ["YouTuber", "Video Editor", "Photo Editor", "Developer", "Web Designer","Fitness & Arts Coach","Blogger","Freelancer",],
+        typeSpeed: 90,
+        backSpeed: 50,
         loop: true
     });
 
     var typed = new Typed(".typing-2", {
-        strings:  ["YouTuber", "Fitness Coach", "Blogger", "Artist", "Carpenter",],
-        typeSpeed: 100,
-        backSpeed: 60,
+        strings: ["YouTuber", "Video Editor", "Photo Editor", "Developer", "Web Designer","Fitness & Arts Coach","Blogger","Freelancer",],
+        typeSpeed: 90,
+        backSpeed: 50,
         loop: true
     });
 
