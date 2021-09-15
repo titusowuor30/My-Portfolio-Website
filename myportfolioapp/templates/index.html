@@ -29,7 +29,8 @@
                 </div>
                 <div class="column right">
                     <div class="text">Who is <span style="color:red;">{{detail.user.first_name}}.</span> <br>  I am a <span class="typing-2"></span></div>
-                   {% if detail.cv %}
+                     <p>{{detail.bio}}</p>
+                    {% if detail.cv %}
                     <a href="{{detail.cv.url}}" download="{{detail.cv.url}}">Download CV</a>
                     {% else %}
                     <a href="{% static 'Titus_Resume.docx' %}" download="{% static 'Titus_Resume.docx' %}">Download CV</a>
