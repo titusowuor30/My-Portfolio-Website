@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 from pathlib import Path
-import django_heroku
 import dj_database_url
 import dotenv
 import logging
@@ -34,7 +33,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 # ALLOWED_HOSTS = ['*']
-ALLOWED_HOSTS = ["localhost", "127.0.0.1","titusowuorportfolio.herokuapp.com",]
+ALLOWED_HOSTS = ['127.0.0.1','localhost','titusowuorportfolio.herokuapp.com',]
 
 # Application definition
 
@@ -95,9 +94,15 @@ WSGI_APPLICATION = 'portfolio.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd3li5qjfhn7fig',
+        'USER': 'ruokbakxmspyba',
+        'PASSWORD': '9d101a1e302db73ccad9c3fa55d27a76d67e4f5e11eb285975ba12b66c65f381',
+        'HOST': 'ec2-44-198-146-224.compute-1.amazonaws.com',
+        'PORT': '5432',
+
     }
+
 }
 
 
@@ -142,10 +147,8 @@ STATICFILES_DIRS = (
 os.path.join(BASE_DIR, 'static'),
 )
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-#X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 
 #mail settings
@@ -163,26 +166,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-
-django_heroku.settings(locals())
-options = DATABASES['default'].get('OPTIONS', {})
-options.pop('sslmode', None)
-
-django_heroku.settings(config=locals(), staticfiles=False,logging=False)
-
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['console'],
-            'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
-        },
-    },
-}
