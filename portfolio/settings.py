@@ -32,9 +32,9 @@ if os.path.isfile(dotenv_file):
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 # ALLOWED_HOSTS = ['*']
-ALLOWED_HOSTS = ["localhost", "127.0.0.1","kimfittyportfolio.herokuapp.com/",]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1","titusowuorportfolio.herokuapp.com",]
 
 # Application definition
 
@@ -142,10 +142,10 @@ STATICFILES_DIRS = (
 os.path.join(BASE_DIR, 'static'),
 )
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-X_FRAME_OPTIONS = 'SAMEORIGIN'
+#X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 
 #mail settings
